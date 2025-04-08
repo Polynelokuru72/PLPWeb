@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interactive JavaScript Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+    }
+    .hidden {
+      display: none;
+    }
+    .error {
+      color: red;
+    }
+    .success {
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Sign Up Form</h2>
+
+  <form id="signupForm">
+    <label for="username">Username:</label><br>
+    <input type="text" id="username" required><br><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" required><br><br>
+
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" required>
+    <button type="button" id="togglePassword">Show</button><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <p id="message" class="hidden"></p>
+
+  <script>
+    const form = document.getElementById("signupForm");
+    const username = document.getElementById("username");
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
+    const message = document.getElementById("message");
+    const toggleBtn = document.getElementById("togglePassword");
+
+    
+    toggleBtn.addEventListener("click", () => {
+      if (password.type === "password") {
+        password.type = "text";
+        toggleBtn.textContent = "Hide";
+      } else {
+        password.type = "password";
+        toggleBtn.textContent = "Show";
+      }
+    });
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+
+      if (username.value.trim() === "" || email.value.trim() === "" || password.value.trim() === "") {
+        message.textContent = "All fields are required.";
+        message.className = "error";
+        message.classList.remove("hidden");
+      } else {
+        message.textContent = `Welcome, ${username.value}! 🎉`;
+        message.className = "success";
+        message.classList.remove("hidden");
+
+        form.reset();
+        toggleBtn.textContent = "Show";
+      }
+    });
+  </script>
+
+</body>
+</html>
